@@ -1,0 +1,9 @@
+<svg width="120" height="140" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shield outline -->
+  <path d="M60 10 L105 30 L105 75 C105 105 85 125 60 130 C35 125 15 105 15 75 L15 30 Z"
+        stroke="#0FB7A6" stroke-width="6" fill="none" stroke-linejoin="round"/>
+
+  <!-- Odds line -->
+  <polyline points="30,85 50,70 70,80 90,50"
+            stroke="#A7FF4A" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>
