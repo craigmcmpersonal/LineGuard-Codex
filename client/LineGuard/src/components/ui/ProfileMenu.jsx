@@ -4,11 +4,17 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu.jsx";
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip.jsx";
 import {Button} from "@/components/ui/button.jsx";
 import {UserRound} from "lucide-react";
-import {LABEL_SIGN_IN, LABEL_SIGN_OUT} from "@/lib/constants.js";
-import {AuthenticatedTemplate, UnauthenticatedTemplate, useMsal} from "@azure/msal-react";
+import {
+    LABEL_DELETE_ACCOUNT,
+    LABEL_PROFILE_MENU,
+    LABEL_RESET_PASSWORD,
+    LABEL_SIGN_IN,
+    LABEL_SIGN_OUT,
+    LABEL_UPDATE_PROFILE
+} from "@/lib/constants.js";
+import {useMsal} from "@azure/msal-react";
 import React from "react";
 import {log} from "@/lib/utilities.js";
 
@@ -21,6 +27,14 @@ export const ProfileMenu = () => {
             authenticator.setActiveAccount(accounts[0]);
         }
     };
+
+    const onDeleteAccount = () => {
+    };
+
+    const onEditProfile = () => {
+    };
+
+    const onResetPassword = () => onSigningIn();
 
     const onSigningIn = () => {
         authenticator.loginPopup()
@@ -46,43 +60,48 @@ export const ProfileMenu = () => {
     log(activeAccount);
 
     return (
-        <TooltipProvider>
+        <>
             <DropdownMenu>
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="icon">
-                                <UserRound
-                                    style={{ color: "#0FB7A6" }}
-                                    role="img"
-                                    aria-label={activeAccount
-                                        ? LABEL_SIGN_OUT
-                                        : LABEL_SIGN_IN
-                                    }
-                                />
-                            </Button>
-                        </DropdownMenuTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                        {activeAccount
-                            ? LABEL_SIGN_OUT
-                            : LABEL_SIGN_IN
-                        }
-                    </TooltipContent>
-                </Tooltip>
+                <DropdownMenuTrigger asChild>
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        disabled={!activeAccount
+                    }>
+                        <UserRound
+                            style={{ color: "#0FB7A6" }}
+                            role="img"
+                            aria-label={LABEL_PROFILE_MENU}
+                        />
+                    </Button>
+                </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="start">
-                    <AuthenticatedTemplate>
-                        <DropdownMenuItem onClick={onSigningOut}>
-                            {LABEL_SIGN_OUT}
-                        </DropdownMenuItem>
-                    </AuthenticatedTemplate>
-                    <UnauthenticatedTemplate>
-                        <DropdownMenuItem onClick={onSigningIn}>
-                            {LABEL_SIGN_IN}
-                        </DropdownMenuItem>
-                    </UnauthenticatedTemplate>
+                    <DropdownMenuItem onClick={onResetPassword}>
+                        {LABEL_RESET_PASSWORD}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={onEditProfile}>
+                        {LABEL_UPDATE_PROFILE}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={onDeleteAccount}>
+                        {LABEL_DELETE_ACCOUNT}
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-        </TooltipProvider>
+            <Button
+                variant="outline"
+                size="sm"
+                className="hidden md:inline-flex border-[#0FB7A6]"
+                onClick={
+                activeAccount
+                    ? onSigningOut
+                    : onSigningIn
+            }>
+                {
+                    activeAccount
+                        ? LABEL_SIGN_OUT
+                        : LABEL_SIGN_IN
+                }
+            </Button>
+        </>
     )
 }
