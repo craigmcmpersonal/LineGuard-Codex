@@ -1,5 +1,6 @@
 import "@/index.css"
 import {createRoot} from "react-dom/client"
+import "@/i18n.js";
 import {App} from "@/App.jsx"
 import {StrictMode} from "react"
 import {PublicClientApplication} from '@azure/msal-browser';
