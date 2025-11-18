@@ -15,10 +15,12 @@ import { Menu } from "lucide-react"
 import {useMsal} from "@azure/msal-react";
 import React from "react";
 import {NavigationOption} from "@/components/ui/NavigationOption.jsx";
+import {useLocation} from "react-router-dom";
 
 export const MainMenu = ({ state, dispatchState, reference}) => {
     const { t:translate } = useTranslation("common");
     const { instance: authenticator } = useMsal();
+    const location = useLocation();
     const activeAccount = authenticator.getActiveAccount();
     const CONTENT = [
             {label:"LABEL_DASHBOARD",path:"/"},
@@ -26,6 +28,8 @@ export const MainMenu = ({ state, dispatchState, reference}) => {
             {label:"LABEL_RULES",path:"/rules"},
             {label:"LABEL_ALERTS",path:"/alerts"},
     ];
+    const currentPath = location.pathname;
+    const isActivePath = (path) => path === "/" ? currentPath === "/" : currentPath.startsWith(path);
 
     return (
             <div className="container mx-auto flex h-14 items-center px-4">
@@ -42,6 +46,7 @@ export const MainMenu = ({ state, dispatchState, reference}) => {
                                         reference={reference}
                                         resource={item.label}
                                         link={item.path}
+                                        isActive={isActivePath(item.path)}
                                     />
                                 ))
                             }
@@ -77,6 +82,7 @@ export const MainMenu = ({ state, dispatchState, reference}) => {
                                         reference={reference}
                                         resource={item.label}
                                         link={item.path}
+                                        isActive={isActivePath(item.path)}
                                         mobile={true}
                                     />
                                 ))
