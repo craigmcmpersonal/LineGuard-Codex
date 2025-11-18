@@ -21,10 +21,10 @@ export const MainMenu = ({ state, dispatchState, reference}) => {
     const { instance: authenticator } = useMsal();
     const activeAccount = authenticator.getActiveAccount();
     const CONTENT = [
-            {label:"LABEL_DASHBOARD",path:"/dashboard"},
+            {label:"LABEL_DASHBOARD",path:"/"},
             {label:"LABEL_BETS",path:"/bets"},
             {label:"LABEL_RULES",path:"/rules"},
-            {label:"LABEL_ALERTS",path:"alerts"},
+            {label:"LABEL_ALERTS",path:"/alerts"},
     ];
 
     return (
