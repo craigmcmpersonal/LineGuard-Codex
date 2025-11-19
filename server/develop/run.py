@@ -1,4 +1,6 @@
-from app import create_app
+"""Development entrypoint for running the LineGuard API."""
+
+from .app import create_app
 
 app = create_app()
 

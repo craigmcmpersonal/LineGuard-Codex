@@ -1,7 +1,9 @@
+"""Flask application factory for LineGuard."""
+
 from flask import Flask
 
 
-def create_app():
+def create_app() -> Flask:
     """Application factory for the LineGuard API."""
     app = Flask(__name__)
 
@@ -11,3 +13,4 @@ def create_app():
         return {"status": "ok"}
 
     return app
+
