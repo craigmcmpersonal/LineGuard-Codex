@@ -2,7 +2,15 @@ import {useTranslation} from "react-i18next";
 import {useMsal} from "@azure/msal-react";
 import {NavigationMenuItem, NavigationMenuLink} from "@/components/ui/navigation-menu.jsx";
 
-export const NavigationOption = ({ state, dispatchState, reference, resource, link, mobile=false}) => {
+export const NavigationOption = ({
+     state,
+     dispatchState,
+     reference,
+     resource,
+     link,
+     mobile=false,
+     active=false
+}) => {
     const { t:translate } = useTranslation("common");
     const { instance: authenticator } = useMsal();
     const activeAccount = authenticator.getActiveAccount();
@@ -10,10 +18,13 @@ export const NavigationOption = ({ state, dispatchState, reference, resource, li
     return (
         mobile ?
             <a
-                href="/link"
+                href={link}
                 className={cn(
                     "text-lg font-medium px-2 py-1",
-                    !activeAccount && "pointer-events-none opacity-50 cursor-not-allowed"
+                     active
+                         ? "bg-accent text-accent-foreground rounded-md"
+                         : "text-foreground",
+                    !activeAccount && "pointer-events-none opacity-50 cursor-not-allowed",
                 )}
             >
                 resource
@@ -21,7 +32,10 @@ export const NavigationOption = ({ state, dispatchState, reference, resource, li
             : <NavigationMenuItem>
                 {activeAccount
                     ? (
-                        <NavigationMenuLink href={link}>
+                        <NavigationMenuLink
+                            href={link}
+                            data-active={active}
+                        >
                             {translate(resource)}
                         </NavigationMenuLink>
                     )

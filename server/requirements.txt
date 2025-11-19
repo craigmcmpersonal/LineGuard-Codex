@@ -1,0 +1,15 @@
+langchain-core
+langchain
+openai
+langchain-openai
+flask
+flask-cors
+asyncpg
+azure-core
+azure-storage-blob
+azure-storage-queue
+psycopg2
+python_dotenv
+pydantic
+pytest
+pytest-asyncio

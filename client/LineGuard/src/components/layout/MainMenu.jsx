@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 import {
     NavigationMenu,
     NavigationMenuList,
@@ -20,11 +21,12 @@ export const MainMenu = ({ state, dispatchState, reference}) => {
     const { t:translate } = useTranslation("common");
     const { instance: authenticator } = useMsal();
     const activeAccount = authenticator.getActiveAccount();
+
     const CONTENT = [
-            {label:"LABEL_DASHBOARD",path:"/dashboard"},
+            {label:"LABEL_DASHBOARD",path:"/"},
             {label:"LABEL_BETS",path:"/bets"},
             {label:"LABEL_RULES",path:"/rules"},
-            {label:"LABEL_ALERTS",path:"alerts"},
+            {label:"LABEL_ALERTS",path:"/alerts"},
     ];
 
     return (
@@ -42,6 +44,7 @@ export const MainMenu = ({ state, dispatchState, reference}) => {
                                         reference={reference}
                                         resource={item.label}
                                         link={item.path}
+                                        active={location.pathname === item.path}
                                     />
                                 ))
                             }

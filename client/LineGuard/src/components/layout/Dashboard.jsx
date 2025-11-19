@@ -3,7 +3,7 @@ import {Landing} from "@/components/layout/Landing.jsx";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Circle, TrendingUp, Bell } from "lucide-react"
+import {CheckCircle, Circle, TrendingUp, Bell, Upload, XCircle} from "lucide-react"
 
 export const Dashboard = ({ state, dispatchState, reference}) => {
     return (
@@ -172,6 +172,5 @@ export const Dashboard = ({ state, dispatchState, reference}) => {
                 <Landing state={state} dispatchState={dispatchState} reference={reference}/>
             </UnauthenticatedTemplate>
         </>
-
     )
 };
