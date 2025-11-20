@@ -8,8 +8,6 @@ asyncpg
 azure-core
 azure-storage-blob
 azure-storage-queue
-psycopg2
 python_dotenv
 pydantic
 pytest
-pytest-asyncio
