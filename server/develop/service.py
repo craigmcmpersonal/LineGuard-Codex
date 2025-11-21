@@ -12,6 +12,7 @@ from flask_cors import CORS
 
 from develop import constants
 from develop import environment
+from develop.monitoring.logger import Logger
 
 load_dotenv()
 
@@ -31,5 +32,5 @@ CORS(
 if __name__ == "__main__":
     port_value: Any = environment.try_get_value(environment.KEY_WEB_SERVICE_PORT)
     port: int = int(port_value)
-    print(f"🚀 Starting service on port {port} ...")
+    Logger.instance().info(f"{port}")
     app.run(host=HOST, port=port)
