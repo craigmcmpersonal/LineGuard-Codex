@@ -59,7 +59,7 @@ RETURNING key, name;
         )
         return result
 
-    async def try_find(self, name: str) -> MarketType | None:
+    async def find(self, name: str) -> MarketType | None:
         result: MarketType | None = await self._fetch_row(self._SQL_TRY_FIND, name)
         return result
 

@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -11,4 +12,4 @@ class Event(BaseModel):
     name: str
     start_time: datetime
     status: EventStatus | None = None
-    public_key: str
+    public_key: UUID

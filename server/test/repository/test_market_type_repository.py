@@ -31,7 +31,7 @@ class TestMarketTypeRepository(unittest.IsolatedAsyncioTestCase):
             repository: MarketTypeRepository = MarketTypeRepository(connection)
             market_type: MarketType = await repository.create(name)
             try:
-                retrieved_market_type: MarketType = await repository.try_find(market_type.name)
+                retrieved_market_type: MarketType = await repository.find(market_type.name)
                 self.assertIsNotNone(retrieved_market_type)
                 self.assertEqual(market_type.key, retrieved_market_type.key)
                 self.assertEqual(market_type.name, retrieved_market_type.name)

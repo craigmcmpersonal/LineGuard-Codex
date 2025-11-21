@@ -1,5 +1,8 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
+from develop.betting_constants import POSITION_WINNER
 from develop.model.outcome import Outcome
 from develop.model.selection_status import SelectionStatus
 
@@ -11,5 +14,5 @@ class Selection(BaseModel):
     market_key: int
     status: SelectionStatus | None = None
     outcome: Outcome | None = None
-    position: str = "1" # In a race, the position being bet on. In a game, 1 signifies betting on the winner.
-    public_key: str
+    position: str = POSITION_WINNER
+    public_key: UUID

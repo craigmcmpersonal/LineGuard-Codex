@@ -98,6 +98,7 @@ RETURNING {_SELECT_COLUMNS};
             sport.key,
             sport.name,
             sport.active,
-            sport.sport_type)
+            sport.sport_type
+        )
         return result
 

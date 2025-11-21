@@ -14,16 +14,19 @@ class BaseRepository(Generic[TModel]):
         return result
 
     async def _fetch_row(self, sql: str, *args) -> TModel | None:
-        row = await self._connection.fetchrow(sql, *args)
+        row: Any = await self._connection.fetchrow(sql, *args)
         result: TModel|None = self._to_model(row) if row else None
         return result
 
     async def _fetch_all(self, sql: str, *args) -> List[TModel]:
-        rows = await self._connection.fetch(sql, *args)
-        result: List[TModel] = [self._to_model(r) for r in rows]
+        rows: list = await self._connection.fetch(sql, *args)
+        result: List[TModel] = [
+            self._to_model(item)
+            for item in rows
+        ]
         return result
 
     async def _execute(self, sql: str, *args) -> bool:
-        row = await self._connection.fetchrow(sql, *args)
+        row: Any = await self._connection.fetchrow(sql, *args)
         result: bool = row is not None
         return result

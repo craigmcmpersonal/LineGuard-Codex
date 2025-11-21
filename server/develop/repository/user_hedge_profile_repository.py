@@ -57,11 +57,16 @@ RETURNING {_SELECT_COLUMNS};
     async def create(
         self,
         user_key: UUID,
-        content: str,
         *,
+        content: str|None = None,
         version: int = 1
     ) -> UserHedgeProfile:
-        result: UserHedgeProfile = await self._fetch_row(self._SQL_CREATE, user_key, content, version)
+        result: UserHedgeProfile = await self._fetch_row(
+            self._SQL_CREATE,
+            user_key,
+            content,
+            version
+        )
         return result
 
     async def try_delete(self, user_hedge_profile: UserHedgeProfile | int) -> bool:
@@ -74,7 +79,7 @@ RETURNING {_SELECT_COLUMNS};
         )
         return result
 
-    async def try_find(self, user_key: str) -> UserHedgeProfile | None:
+    async def try_find(self, user_key: UUID) -> UserHedgeProfile | None:
         result: UserHedgeProfile|None = await self._fetch_row(self._SQL_TRY_FIND, user_key)
         return result
 

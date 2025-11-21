@@ -12,3 +12,6 @@ class HedgeRule(BaseModel):
     priority: int
     active: bool
     creation_time: datetime
+    version: int
+    valid_from: datetime
+    valid_to: datetime|None

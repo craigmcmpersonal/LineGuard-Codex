@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -16,4 +17,4 @@ class BetLeg(BaseModel):
     index: int
     odds_live: float | None = None
     settled_time: datetime | None = None
-    public_key: str
+    public_key: UUID

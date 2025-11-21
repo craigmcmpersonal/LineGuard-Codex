@@ -1,0 +1,1 @@
+POSITION_WINNER: str = "1"
