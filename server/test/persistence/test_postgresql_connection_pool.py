@@ -4,9 +4,9 @@ from typing import Coroutine, Any
 
 from asyncpg import Pool
 
-from develop.persistance.model import MarketType
-from develop.persistance.market_type_repository import MarketTypeRepository
-from develop.persistance.postgresql_pool_factory import create_pool_async
+from develop.persistence.model.market_type import MarketType
+from develop.persistence.market_type_storage_adapter import MarketTypeStorageAdapter
+from develop.persistence.postgresql_pool_factory import create_pool_async
 from develop.utility import compose_unique_identifier
 
 
@@ -14,8 +14,8 @@ class TestPostgresqlConnectionPool(unittest.IsolatedAsyncioTestCase):
     async def use_pool_async(self, pool: Pool):
         name: str = compose_unique_identifier()
         async with pool.acquire() as connection:
-            repository: MarketTypeRepository = MarketTypeRepository(connection)
-            market_type: MarketType = await repository.create(name)
+            storage_adapter: MarketTypeStorageAdapter = MarketTypeStorageAdapter(connection)
+            market_type: MarketType = await storage_adapter.create(name)
             self.assertIsNotNone(market_type)
             self.assertIsNotNone(market_type.key)
             try:
@@ -23,7 +23,7 @@ class TestPostgresqlConnectionPool(unittest.IsolatedAsyncioTestCase):
                 initial_market_type: str = market_type.model_dump_json()
                 print(initial_market_type)
             finally:
-                await repository.try_delete(market_type)
+                await storage_adapter.try_delete(market_type)
 
     async def test_postgresql_connection_pool_works_async(self):
         number_cases: int = 5
