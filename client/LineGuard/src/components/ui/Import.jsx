@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import {ACTION_ON_CANCEL_IMPORT} from "@/lib/state.js";
 import { Upload, FileText, Link as LinkIcon } from "lucide-react"
 
 
@@ -27,11 +28,16 @@ export const Import = ({state, dispatchState, reference, open, onOpenChange, onI
         }
         onImport?.(payload)
         onOpenChange(false)
-    }
+    };
+
+    const onCancel = () => dispatchState({
+        type: ACTION_ON_CANCEL_IMPORT,
+    });
+
 
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-lg">
+        <Dialog open={state.importInitiated} onOpenChange={onOpenChange}>
+            <DialogContent className="max-w-lg" showCloseButton={false}>
                 <DialogHeader>
                     <DialogTitle>Import Your Bets</DialogTitle>
                     <DialogDescription>
@@ -39,8 +45,19 @@ export const Import = ({state, dispatchState, reference, open, onOpenChange, onI
                     </DialogDescription>
                 </DialogHeader>
 
+                <DialogClose asChild>
+                    <button
+                        onClick={() => {
+                            console.log("Top-right X clicked");
+                            onCancel();
+                        }}
+                        className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100"
+                    >
+                        <span className="sr-only">Close</span>
+                    </button>
+                </DialogClose>
 
-                {/* ====== PASTE BET TEXT ====== */}
+
                 <div className="space-y-3">
                     <h3 className="font-medium flex items-center gap-2">
                         <FileText className="w-4 h-4 text-primary" />
@@ -59,7 +76,6 @@ export const Import = ({state, dispatchState, reference, open, onOpenChange, onI
                 <Separator className="my-6" />
 
 
-                {/* ====== UPLOAD SCREENSHOT ====== */}
                 <div className="space-y-3">
                     <h3 className="font-medium flex items-center gap-2">
                         <Upload className="w-4 h-4 text-primary" />
@@ -83,7 +99,6 @@ export const Import = ({state, dispatchState, reference, open, onOpenChange, onI
                 <Separator className="my-6" />
 
 
-                {/* ====== CONNECT SPORTSBOOK (FUTURE) ====== */}
                 <div className="space-y-3">
                     <h3 className="font-medium flex items-center gap-2">
                         <LinkIcon className="w-4 h-4 text-primary" />
@@ -104,10 +119,9 @@ export const Import = ({state, dispatchState, reference, open, onOpenChange, onI
                 </div>
 
 
-                {/* ====== ACTIONS ====== */}
                 <DialogFooter className="mt-4">
                     <DialogClose asChild>
-                        <Button variant="outline">Cancel</Button>
+                        <Button variant="outline" onClick={onCancel}>Cancel</Button>
                     </DialogClose>
 
                     <Button onClick={handleImport}>Import Bets</Button>
